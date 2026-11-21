@@ -79,3 +79,52 @@ std::vector<float> getMagnitude(const Data& data){
     return magnitudes;
 
 }
+
+
+std::string fitLSQ(const Data& data){
+
+
+    float x_sum   = 0.0;
+    float y_sum   = 0.0;
+    float xy_sum  = 0.0;
+    float xsq_sum = 0.0;
+
+    int N;
+    N = data.x_vals.size();
+
+    for(int i=0;i<N;i++){
+
+        const double x = data.x_vals[i];
+        const double y = data.y_vals[i];
+
+        x_sum += x;
+        y_sum += y;
+        xy_sum += x * y;
+        xsq_sum += x * x;
+    }
+
+    float denom = N * xsq_sum - x_sum*x_sum;
+
+    if(denom == 0.0) {
+        std::cerr << "fit error : denominator is 0.\n";
+        return {};
+    }
+
+    float p;
+    p = (N * xy_sum - x_sum*y_sum)/denom;
+    
+    float q;
+    q = (xsq_sum*y_sum - xy_sum*x_sum)/denom;
+
+
+    char buffer[100];
+    std::sprintf(buffer, "y = %.3f x + %.3f", p, q);
+
+    std::string linfit = buffer;
+
+    std::cout << "The final function using LSQ is: "
+            << linfit << '\n';
+
+    return linfit;
+
+}

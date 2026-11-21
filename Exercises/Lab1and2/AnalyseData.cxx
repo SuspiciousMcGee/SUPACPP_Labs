@@ -15,7 +15,8 @@ int main(){
     std::cout << "Choose an option:\n"
               << "1. Print N lines of data\n"
               << "2. Print the magnitude of every data point\n"
-              << "Enter 1 or 2: ";
+              << "3. Perform a least squares fit to the data\n"
+              << "Enter 1, 2 or 3: ";
 
       if (!(std::cin >> choice)) {
         std::cerr << "Please enter a valid choice.\n";
@@ -44,6 +45,11 @@ int main(){
             mag = getMagnitude(data);
             break;
 
+        }
+        case 3: {
+            std::string linfit;
+            linfit = fitLSQ(data);
+            break;
         }
         default: 
         {
