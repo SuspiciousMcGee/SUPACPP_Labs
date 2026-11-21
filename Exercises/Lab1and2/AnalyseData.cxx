@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <sstream>
 #include <vector>
+#include <cmath>
+
 
 struct Data{
     std::vector<float> x_vals;
@@ -63,6 +64,23 @@ void printData(const Data& data, int N){
 
 }
 
+std::vector<float> getMagnitude(const Data& data){
+
+    int N_points = data.x_vals.size();
+    std::vector<float> magnitudes;
+
+    for(int i = 0; i<N_points;i++){
+        float x = data.x_vals[i];
+        float y = data.y_vals[i];
+        magnitudes.push_back(sqrt(x*x + y*y));
+
+        std::cout << "Data point " << i+1 << ": ||(x,y)|| = " << magnitudes[i] << std::endl;
+    }
+
+    return magnitudes;
+
+}
+
 
 int main(){
 
@@ -77,6 +95,9 @@ int main(){
     }
 
     printData(data, N);
+
+    std::vector<float> mag;
+    mag = getMagnitude(data);
 
 
 return 0;
