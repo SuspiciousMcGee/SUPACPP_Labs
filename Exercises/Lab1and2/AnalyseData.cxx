@@ -3,101 +3,56 @@
 #include <fstream>
 #include <vector>
 #include <cmath>
-
-
-struct Data{
-    std::vector<float> x_vals;
-    std::vector<float> y_vals;
-};
-
-Data readFile( const char* filename){
-
-    std::ifstream data_file(filename);
-
-    Data result;
-
-    std::string firstline;
-    std::vector<float> x_vals;
-    std::vector<float> y_vals;
-
-
-    std::getline(data_file, firstline); // skip first line 
-    char comma;
-    int line_num = 0;
-
-    float x,y;
-    while(data_file >> x >> comma >> y){
-
-        
-        result.x_vals.push_back(x);
-        result.y_vals.push_back(y);
-
-        line_num++;
-        
-    }
-    std::cout<< "file reading complete. Number of data lines: " << line_num << std::endl;
-
-    return result;
-}
-
-void printData(const Data& data, int N){
-
-    if (N < 0) {
-        std::cout << "N cannot be negative; no lines will be printed.\n";
-        return;
-    }
-    if(N > data.x_vals.size() || N > data.y_vals.size()){
-        std::cout << "Warning: N is larger than the number of data points. Printing first 5 lines:" << std::endl;
-        
-        for(int i=0;i<5;i++){
-            std::cout << "Line " << i + 1 << ": (x, y) = (" << data.x_vals[i] << ", " << data.y_vals[i] << ")\n";
-        }
-    
-    }else{
-
-        for(int i=0;i<N;i++){
-            std::cout << "Line " << i + 1 << ": (x, y) = (" << data.x_vals[i] << ", " << data.y_vals[i] << ")\n";
-        }
-
-    }
-
-
-}
-
-std::vector<float> getMagnitude(const Data& data){
-
-    int N_points = data.x_vals.size();
-    std::vector<float> magnitudes;
-
-    for(int i = 0; i<N_points;i++){
-        float x = data.x_vals[i];
-        float y = data.y_vals[i];
-        magnitudes.push_back(sqrt(x*x + y*y));
-
-        std::cout << "Data point " << i+1 << ": ||(x,y)|| = " << magnitudes[i] << std::endl;
-    }
-
-    return magnitudes;
-
-}
+#include "CustomFunctions.h"
 
 
 int main(){
 
     Data data = readFile("input2D_float.txt");
 
-    int N;
-    std::cout << "Insert number of data lines to be printed :  ";
+    int choice;
+   
+    std::cout << "Choose an option:\n"
+              << "1. Print N lines of data\n"
+              << "2. Print the magnitude of every data point\n"
+              << "Enter 1 or 2: ";
 
-    if (!(std::cin >> N)) {
-        std::cerr << "Please enter a valid integer for N.\n";
+      if (!(std::cin >> choice)) {
+        std::cerr << "Please enter a valid choice.\n";
         return 1;
     }
 
-    printData(data, N);
+    switch(choice){
 
-    std::vector<float> mag;
-    mag = getMagnitude(data);
+        case 1: 
+        {
+            int N;
+            std::cout << "Insert number of data lines to be printed :  ";
+
+            if (!(std::cin >> N)) {
+                std::cerr << "Please enter a valid integer for N.\n";
+                return 1;
+            }
+
+            printData(data, N);
+            break;
+        }
+        case 2: 
+        {
+
+            std::vector<float> mag;
+            mag = getMagnitude(data);
+            break;
+
+        }
+        default: 
+        {
+            std::cerr << "Invalid choice. Enter 1 or 2.\n";
+            return 1;
+        }
+
+    }
+
 
 
 return 0;
