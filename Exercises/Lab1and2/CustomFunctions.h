@@ -11,3 +11,4 @@ Data readFile(const char* filename);
 void printData(const Data& data, int N);
 std::vector<float> getMagnitude(const Data& data);
 std::string fitLSQ(const Data& data);
+

@@ -126,5 +126,6 @@ std::string fitLSQ(const Data& data){
             << linfit << '\n';
 
     return linfit;
+    
 
 }
