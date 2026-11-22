@@ -132,8 +132,43 @@ std::string fitLSQ(const Data& data){
     q = (xsq_sum*y_sum - xy_sum*x_sum)/denom;
 
 
+    //chi2 test
+    std::vector<float> y_obs;
+    std::vector<float> y_exp;
+    //find expected values
+    for(int i=0;i<N;i++){
+
+        y_obs.push_back(data.y_vals[i]);
+        y_exp.push_back(p*data.x_vals[i]+q);
+
+    }
+    
+    //fetch errors from file 
+    Data errs = readFile("error2D_float.txt");
+
+    //calculate chi2
+    double chi2=0.0;
+    for(int i=0;i<N;i++){
+
+        const double x_err = errs.x_vals[i];
+        const double y_err = errs.y_vals[i]; 
+
+        // tot variance: (dy)^2 + (dy/dx)^2(dx)^2
+        const double exp_errsq = y_err*y_err + p*p*x_err*x_err; 
+        const double res = y_obs[i] - y_exp[i];
+
+        chi2 += (res * res)/(exp_errsq);
+
+    }
+
+    const double dof = static_cast<double>(N - 2);
+
+    double chi2ndof = chi2 / dof;
+
+
+
     char buffer[100];
-    std::sprintf(buffer, "y = %.3f x + %.3f", p, q);
+    std::sprintf(buffer, "y = %.3f x + %.3f.\n Chi-squared/NDOF: %.3f", p, q, chi2ndof);
 
     std::string linfit = buffer;
 
