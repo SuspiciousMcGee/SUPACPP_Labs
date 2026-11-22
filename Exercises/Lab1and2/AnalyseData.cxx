@@ -16,7 +16,8 @@ int main(){
               << "1. Print N lines of data\n"
               << "2. Print the magnitude of every data point\n"
               << "3. Perform a least squares fit to the data\n"
-              << "Enter 1, 2 or 3: ";
+              << "4. Calculate x^y values for data points\n"
+              << "Enter 1, 2, 3 or 4: ";
 
       if (!(std::cin >> choice)) {
         std::cerr << "Please enter a valid choice.\n";
@@ -52,6 +53,9 @@ int main(){
             linfit = fitLSQ(data);
             printData(linfit);
             break;
+        }
+        case 4: {
+            std::vector<float> xpowy = xPOWy();   
         }
         default: 
         {

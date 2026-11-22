@@ -173,6 +173,45 @@ std::string fitLSQ(const Data& data){
     std::string linfit = buffer;
 
     return linfit;
+
+}
+
+
+double recursivePOW(double base, int exp){
+
+    // x^round(y) = x * x^(round(y)-1) = . . . = x*x*...*x y times
+
+    if(exp == 0){
+        return 1.0;
+    }
+
+
+    if(exp < 0 && base!=0.0){
+        return (1.0/base) * recursivePOW(base, exp+1);
+    }
+
+
+    return base * recursivePOW(base, exp - 1);
+
+}
+
+std::vector<double> xPOWy(const Data& data){
     
+    int N = data.x_vals.size();
+
+    std::vector<double> xpowy;
+
+    //loop used only to fill the vector :)
+    for(int i=0;i<N;i++){
+        
+        const double x = data.x_vals[i];
+        const double rounded_y = std::round(data.y_vals[i]);
+        const int exponent = static_cast<int>(rounded_y);
+
+        xpowy.push_back(recursivePOW(x,exponent));
+
+    }
+
+    return xpowy;
 
 }

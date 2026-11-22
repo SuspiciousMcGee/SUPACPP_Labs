@@ -13,4 +13,6 @@ void printData(const std::vector<float>& mag);
 void printData(const std::string& linearfit);
 std::vector<float> getMagnitude(const Data& data);
 std::string fitLSQ(const Data& data);
+double recursivePOW(double base, int exp);
+std::vector<double> xPOWy(const Data& data);
 
