@@ -15,4 +15,6 @@ std::vector<float> getMagnitude(const Data& data);
 std::string fitLSQ(const Data& data);
 double recursivePOW(double base, int exp);
 std::vector<float> xPOWy(const Data& data);
+void saveOutput(const std::vector<float>& vec,const std::string& filename);
+void saveOutput(const std::string& fit);
 

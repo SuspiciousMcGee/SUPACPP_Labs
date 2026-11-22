@@ -215,3 +215,35 @@ std::vector<float> xPOWy(const Data& data){
     return xpowy;
 
 }
+
+//both xPOWy and getMagnitude are std::vector<float>, so specify filename when calling the function
+void saveOutput(const std::vector<float>& vec,const std::string& filename){
+
+    std::ofstream output(filename);
+
+    if (!output) {
+        std::cerr << "Could not create " << filename << '\n';
+        return;
+    }
+
+    for (std::size_t i = 0; i < vec.size(); ++i) {
+        output << "Data Point " << i + 1 << " : " << vec[i] << '\n';
+    }
+
+    std::cout << "Saved results to " << filename << '\n';
+
+
+}
+void saveOutput(const std::string& fit){
+
+    std::ofstream output("linear_fit.txt");
+
+    if (!output) {
+        std::cerr << "Could not create linear_fit.txt\n";
+        return;
+    }
+
+    output << fit << '\n';
+    std::cout << "Saved fit result to linear_fit.txt\n";
+    
+}
