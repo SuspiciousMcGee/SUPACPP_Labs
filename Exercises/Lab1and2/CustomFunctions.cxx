@@ -67,7 +67,7 @@ void printData(const Data& data, int N){
 void printData(const std::vector<float>& mag){
 
     for(int i=0;i<mag.size();i++){
-         std::cout << "Data point " << i+1 << ": ||(x,y)|| = " << mag[i] << std::endl;
+         std::cout << "Data point " << i+1 << " : " << mag[i] << std::endl;
     }
 
 }
@@ -177,7 +177,7 @@ std::string fitLSQ(const Data& data){
 }
 
 
-double recursivePOW(double base, int exp){
+float recursivePOW(float base, int exp){
 
     // x^round(y) = x * x^(round(y)-1) = . . . = x*x*...*x y times
 
@@ -195,17 +195,17 @@ double recursivePOW(double base, int exp){
 
 }
 
-std::vector<double> xPOWy(const Data& data){
+std::vector<float> xPOWy(const Data& data){
     
     int N = data.x_vals.size();
 
-    std::vector<double> xpowy;
+    std::vector<float> xpowy;
 
     //loop used only to fill the vector :)
     for(int i=0;i<N;i++){
         
-        const double x = data.x_vals[i];
-        const double rounded_y = std::round(data.y_vals[i]);
+        const float x = data.x_vals[i];
+        const float rounded_y = std::round(data.y_vals[i]);
         const int exponent = static_cast<int>(rounded_y);
 
         xpowy.push_back(recursivePOW(x,exponent));

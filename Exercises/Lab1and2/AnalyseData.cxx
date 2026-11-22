@@ -55,7 +55,8 @@ int main(){
             break;
         }
         case 4: {
-            std::vector<float> xpowy = xPOWy();   
+            std::vector<float> xpowy = xPOWy(data);
+            printData(xpowy);
         }
         default: 
         {
