@@ -43,12 +43,14 @@ int main(){
 
             std::vector<float> mag;
             mag = getMagnitude(data);
+            printData(mag);
             break;
 
         }
         case 3: {
             std::string linfit;
             linfit = fitLSQ(data);
+            printData(linfit);
             break;
         }
         default: 

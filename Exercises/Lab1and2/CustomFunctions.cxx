@@ -63,6 +63,22 @@ void printData(const Data& data, int N){
 
 }
 
+
+void printData(const std::vector<float>& mag){
+
+    for(int i=0;i<mag.size();i++){
+         std::cout << "Data point " << i+1 << ": ||(x,y)|| = " << mag[i] << std::endl;
+    }
+
+}
+
+void printData(const std::string& linearfit){
+
+        std::cout << "The final function using LSQ is: "
+            << linearfit << '\n';
+
+}
+
 std::vector<float> getMagnitude(const Data& data){
 
     int N_points = data.x_vals.size();
@@ -73,7 +89,6 @@ std::vector<float> getMagnitude(const Data& data){
         float y = data.y_vals[i];
         magnitudes.push_back(sqrt(x*x + y*y));
 
-        std::cout << "Data point " << i+1 << ": ||(x,y)|| = " << magnitudes[i] << std::endl;
     }
 
     return magnitudes;
@@ -121,9 +136,6 @@ std::string fitLSQ(const Data& data){
     std::sprintf(buffer, "y = %.3f x + %.3f", p, q);
 
     std::string linfit = buffer;
-
-    std::cout << "The final function using LSQ is: "
-            << linfit << '\n';
 
     return linfit;
     
